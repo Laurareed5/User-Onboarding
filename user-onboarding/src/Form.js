@@ -7,6 +7,7 @@ export default function Form() {
     name: "",
     email: "",
     password: "",
+    terms: false,
   });
 
   const formSubmit = (event) => {
@@ -14,8 +15,11 @@ export default function Form() {
   };
 
   const inputChange = (event) => {
-    console.log("yeah, boi!", event.target.name);
-    setFormState({ ...formState, [event.target.name]: event.target.value });
+    let value =
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : event.target.value;
+    setFormState({ ...formState, [event.target.name]: value });
   };
   return (
     <form onSubmit={formSubmit}>
@@ -47,6 +51,17 @@ export default function Form() {
             name="password"
             id="password"
             value={formState.password}
+            onChange={inputChange}
+          />
+        </label>
+
+        <label htmlFor="terms">
+          Terms & Conditions
+          <input
+            type="checkbox"
+            id="terms"
+            name="terms"
+            checked={formState.terms}
             onChange={inputChange}
           />
         </label>

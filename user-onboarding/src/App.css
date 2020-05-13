@@ -16,15 +16,14 @@ form {
 }
 
 label {
-  display       : flex;
-  flex-direction: column;
-  align-items   : flex-start;
-  margin        : 10px 0;
-  font-size     : 1.4rem;
+  display          : flex;
+  /* flex-direction: column; */
+  align-items      : flex-start;
+  margin           : 10px 0;
+  font-size        : 1.4rem;
 }
 
 input,
-select,
 textarea {
   width           : 100%;
   margin          : 5px 0 0;
@@ -39,15 +38,7 @@ textarea {
   background-color: white;
 }
 
-select {
-  height: 40px;
-  width : 325px;
-}
 
-select:focus {
-  outline     : none;
-  border-color: #f785ed;
-}
 
 input:focus {
   outline     : none;
@@ -100,7 +91,8 @@ button:disabled {
 }
 
 .terms input {
-  width       : 15px;
-  display     : inline-block;
-  margin-right: 5px;
+  width         : 15px;
+  display       : inline-block;
+  margin-right  : 5px;
+  vertical-align: middle;
 }
