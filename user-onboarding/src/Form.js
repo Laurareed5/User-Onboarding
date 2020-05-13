@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import * as yup from "yup";
 import axios from "axios";
 
+const formSchema = yup.object().shape({
+  name: yup.string().required("Oops, you forgot your own name!"),
+  email: yup
+    .string()
+    .required("Don't forget your email!")
+    .email("Don't forget your email!"),
+  password: yup.string().required("What's the secret password?"),
+  terms: yup.boolean().oneOf([true]),
+});
+
 export default function Form() {
   const [formState, setFormState] = useState({
     name: "",
@@ -10,11 +20,39 @@ export default function Form() {
     terms: false,
   });
 
+  const [errorState, setErrorState] = useState({
+    name: "",
+    email: "",
+    password: "",
+    terms: "",
+  });
+
   const formSubmit = (event) => {
     event.preventDefault();
   };
 
+  const validate = (event) => {
+    yup
+      .reach(formSchema, event.target.name)
+      .validate(event.target.value)
+      .then((valid) => {
+        setErrorState({
+          ...errorState,
+          [event.target.name]: "",
+        });
+      })
+      .catch((err) => {
+        console.log(err.errors);
+        setErrorState({
+          ...errorState,
+          [event.target.name]: err.errors[0],
+        });
+      });
+  };
+
   const inputChange = (event) => {
+    event.persist();
+    validate(event);
     let value =
       event.target.type === "checkbox"
         ? event.target.checked
@@ -32,6 +70,9 @@ export default function Form() {
           value={formState.name}
           onChange={inputChange}
         />
+        {errorState.name.length > 0 ? (
+          <p className="error">{errorState.name}</p>
+        ) : null}
       </label>
       <div>
         <label htmlFor="email">
@@ -43,6 +84,9 @@ export default function Form() {
             value={formState.email}
             onChange={inputChange}
           />
+          {errorState.email.length > 0 ? (
+            <p className="error">{errorState.email}</p>
+          ) : null}
         </label>
         <label htmlFor="password">
           <input
@@ -53,6 +97,9 @@ export default function Form() {
             value={formState.password}
             onChange={inputChange}
           />
+          {errorState.password.length > 0 ? (
+            <p className="error">{errorState.password}</p>
+          ) : null}
         </label>
 
         <label htmlFor="terms">
@@ -64,6 +111,9 @@ export default function Form() {
             checked={formState.terms}
             onChange={inputChange}
           />
+          {errorState.terms.length > 0 ? (
+            <p className="error">{errorState.terms}</p>
+          ) : null}
         </label>
 
         <button>Submit</button>

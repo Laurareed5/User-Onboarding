@@ -7,6 +7,11 @@ html {
   text-align : center;
 }
 
+body {
+  background-color: rgb(97, 182, 182);
+  background-image: linear-gradient(to right, #9edaec, rgb(243, 197, 237));
+}
+
 form {
   display       : flex;
   flex-direction: column;
@@ -60,7 +65,7 @@ button {
   letter-spacing  : 2px;
   outline         : none;
   background-color: rgb(129, 51, 129);
-  background-image: linear-gradient(to right, #f785ed, rgb(138, 48, 138));
+  background-image: linear-gradient(to right, #f785ed, rgb(240, 102, 166));
   color           : #fff;
   cursor          : pointer;
   box-shadow      : 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -68,7 +73,7 @@ button {
 
 button:hover {
   background-image: none;
-  background-color: #180615;
+  background-color: #d3b0cd;
   box-shadow      : 0 5px 12px rgba(0, 0, 0, 0.3);
 }
 
