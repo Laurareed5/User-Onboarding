@@ -6,6 +6,7 @@ export default function Form() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
+    password: "",
   });
 
   const formSubmit = (event) => {
@@ -13,7 +14,8 @@ export default function Form() {
   };
 
   const inputChange = (event) => {
-    setFormState({ name: event.target.value });
+    console.log("yeah, boi!", event.target.name);
+    setFormState({ ...formState, [event.target.name]: event.target.value });
   };
   return (
     <form onSubmit={formSubmit}>
@@ -34,10 +36,21 @@ export default function Form() {
             placeholder="Enter Email Address Here"
             name="email"
             id="email"
-            value={""}
+            value={formState.email}
             onChange={inputChange}
           />
         </label>
+        <label htmlFor="password">
+          <input
+            type="password"
+            placeholder="Enter Password Here"
+            name="password"
+            id="password"
+            value={formState.password}
+            onChange={inputChange}
+          />
+        </label>
+
         <button>Submit</button>
       </div>
     </form>
