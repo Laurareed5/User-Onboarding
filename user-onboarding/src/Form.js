@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import UsersList from "./UsersList";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("Oops, you forgot your own name!"),
@@ -13,12 +14,10 @@ const formSchema = yup.object().shape({
 });
 
 export default function Form() {
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    password: "",
-    terms: false,
-  });
+  const [users, setUsers] = useState([]);
+  const [post, setPost] = useState([]);
+
+  const [formState, setFormState] = useState({});
 
   const [errorState, setErrorState] = useState({
     name: "",
@@ -60,8 +59,11 @@ export default function Form() {
     event.preventDefault();
     axios
       .post("https://reqres.in/api/users", formState)
-      .then((response) => console.log(response))
-      .catch((err) => console.log(err));
+      .then((response) => {
+        setPost([response.data]);
+        setUsers([...users, response.data]);
+      })
+      .catch((err) => console.log(err.response));
   };
 
   return (
@@ -117,8 +119,9 @@ export default function Form() {
             onChange={inputChange}
           />
         </label>
-
         <button>Submit</button>
+        {post.length > 0 ? <pre>{JSON.stringify(post, null, 2)}</pre> : null}
+        <UsersList users={users} />
       </div>
     </form>
   );
