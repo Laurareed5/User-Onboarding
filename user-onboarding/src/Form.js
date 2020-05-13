@@ -5,6 +5,7 @@ import axios from "axios";
 export default function Form() {
   const [formState, setFormState] = useState({
     name: "",
+    email: "",
   });
 
   const formSubmit = (event) => {
@@ -17,10 +18,26 @@ export default function Form() {
   return (
     <form onSubmit={formSubmit}>
       <label htmlFor="name">
-        Name:
-        <input type="text" name="name" />
+        <input
+          type="text"
+          placeholder="First and Last Name"
+          name="name"
+          id="name"
+          value={formState.name}
+          onChange={inputChange}
+        />
       </label>
       <div>
+        <label htmlFor="email">
+          <input
+            type="email"
+            placeholder="Enter Email Address Here"
+            name="email"
+            id="email"
+            value={""}
+            onChange={inputChange}
+          />
+        </label>
         <button>Submit</button>
       </div>
     </form>
