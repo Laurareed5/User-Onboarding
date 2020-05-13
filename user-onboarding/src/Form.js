@@ -27,10 +27,6 @@ export default function Form() {
     terms: "",
   });
 
-  const formSubmit = (event) => {
-    event.preventDefault();
-  };
-
   const validate = (event) => {
     yup
       .reach(formSchema, event.target.name)
@@ -59,6 +55,15 @@ export default function Form() {
         : event.target.value;
     setFormState({ ...formState, [event.target.name]: value });
   };
+
+  const formSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post("https://reqres.in/api/users", formState)
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <form onSubmit={formSubmit}>
       <label htmlFor="name">
@@ -111,9 +116,6 @@ export default function Form() {
             checked={formState.terms}
             onChange={inputChange}
           />
-          {errorState.terms.length > 0 ? (
-            <p className="error">{errorState.terms}</p>
-          ) : null}
         </label>
 
         <button>Submit</button>
